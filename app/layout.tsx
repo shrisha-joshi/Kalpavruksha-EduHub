@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Kalpavruksha EduHub" }],
   creator: "Kalpavruksha EduHub",
   publisher: "Kalpavruksha EduHub",
-  metadataBase: new URL('https://kalpavrukshaedu.vercel.app'),
+  metadataBase: new URL('https://kalpavruksha-eduhub.vercel.app'),
   verification: {
     google: "3I9iGHeDeDLRzzePUKbtqKY6yzL7APZbnHEZcIYOhJw",
   },

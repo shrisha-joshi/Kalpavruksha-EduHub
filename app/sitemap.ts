@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://kalpavrukshaedu.vercel.app';
+  const baseUrl = 'https://kalpavruksha-eduhub.vercel.app';
   
   // Static pages with priority and update frequency
   const staticPages = [
