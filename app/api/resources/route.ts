@@ -1,35 +1,53 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getResources, addResource, deleteResource } from '@/lib/dataStore';
+import dbConnect from '@/lib/db';
+import { Resource } from '@/lib/models';
+
+// CORS headers
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
 
 export async function GET() {
   try {
-    const resources = getResources();
-    return NextResponse.json(resources);
+    await dbConnect();
+    const resources = await Resource.find({}).sort({ uploadedAt: -1 });
+    return NextResponse.json(resources, { headers: corsHeaders });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch resources' }, { status: 500 });
+    console.error('Error fetching resources:', error);
+    return NextResponse.json({ error: 'Failed to fetch resources' }, { status: 500, headers: corsHeaders });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
+    await dbConnect();
     const data = await request.json();
-    const newResource = addResource(data);
-    return NextResponse.json(newResource, { status: 201 });
+    const newResource = await Resource.create(data);
+    return NextResponse.json(newResource, { status: 201, headers: corsHeaders });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to create resource' }, { status: 500 });
+    console.error('Error creating resource:', error);
+    return NextResponse.json({ error: 'Failed to create resource' }, { status: 500, headers: corsHeaders });
   }
 }
 
 export async function DELETE(request: NextRequest) {
   try {
+    await dbConnect();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     if (!id) {
-      return NextResponse.json({ error: 'ID required' }, { status: 400 });
+      return NextResponse.json({ error: 'ID required' }, { status: 400, headers: corsHeaders });
     }
-    deleteResource(id);
-    return NextResponse.json({ success: true });
+    await Resource.findByIdAndDelete(id);
+    return NextResponse.json({ success: true }, { headers: corsHeaders });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to delete resource' }, { status: 500 });
+    console.error('Error deleting resource:', error);
+    return NextResponse.json({ error: 'Failed to delete resource' }, { status: 500, headers: corsHeaders });
   }
 }
