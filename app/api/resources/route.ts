@@ -9,15 +9,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-// Configure API route for unlimited resources
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-    responseLimit: false, // Allow unlimited response size for 500+ resources
-  },
-};
+// App Router handles unlimited resources natively - no config needed
 
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });

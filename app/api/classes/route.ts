@@ -9,16 +9,6 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-// Configure API route
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
-    responseLimit: false,
-  },
-};
-
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
 }
