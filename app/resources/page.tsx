@@ -19,6 +19,7 @@ type Resource = {
   branch?: string;
   semester?: string;
   subjectCode?: string;
+  header?: string;
   type: 'notes' | 'pyq' | 'handwritten' | 'syllabus' | 'important-questions';
   fileUrl: string;
   uploadedAt: Date;
@@ -178,7 +179,8 @@ export default function ResourcesPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="cse">Computer Science</SelectItem>
-                  <SelectItem value="ece">Electronics</SelectItem>
+                  <SelectItem value="ece">Electronics and Communication (E&C)</SelectItem>
+                  <SelectItem value="eee">Electrical and Electronics (EEE)</SelectItem>
                   <SelectItem value="mech">Mechanical</SelectItem>
                   <SelectItem value="civil">Civil</SelectItem>
                 </SelectContent>
@@ -267,6 +269,12 @@ export default function ResourcesPage() {
                     </div>
 
                     <h3 className="text-lg font-semibold mb-2 flex-1">{resource.name}</h3>
+                    
+                    {resource.header && (
+                      <div className="mb-3 px-3 py-1.5 bg-primary/10 rounded-md">
+                        <p className="text-sm font-medium text-primary">📌 {resource.header}</p>
+                      </div>
+                    )}
 
                     <div className="space-y-1 text-sm text-muted-foreground mb-4">
                       <p>🎓 {resource.university.toUpperCase()}</p>
