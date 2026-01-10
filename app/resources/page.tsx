@@ -13,11 +13,12 @@ type Resource = {
   _id: string;
   name: string;
   university: string;
+  scheme?: string;
   college?: string;
   branch?: string;
   semester?: string;
   subjectCode?: string;
-  type: 'notes' | 'pyq' | 'handwritten';
+  type: 'notes' | 'pyq' | 'handwritten' | 'syllabus' | 'important-questions';
   fileUrl: string;
   uploadedAt: Date;
 };
@@ -27,6 +28,7 @@ export default function ResourcesPage() {
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     university: '',
+    scheme: '',
     branch: '',
     semester: '',
     type: '',
@@ -53,6 +55,7 @@ export default function ResourcesPage() {
 
   const filteredResources = resources.filter((resource) => {
     if (filters.university && resource.university !== filters.university) return false;
+    if (filters.scheme && resource.scheme !== filters.scheme) return false;
     if (filters.branch && resource.branch !== filters.branch) return false;
     if (filters.semester && resource.semester !== filters.semester) return false;
     if (filters.type && resource.type !== filters.type) return false;
@@ -95,6 +98,8 @@ export default function ResourcesPage() {
       notes: { label: 'Notes', color: 'bg-blue-500' },
       pyq: { label: 'PYQ', color: 'bg-purple-500' },
       handwritten: { label: 'Handwritten', color: 'bg-green-500' },
+      syllabus: { label: 'Syllabus', color: 'bg-orange-500' },
+      'important-questions': { label: 'Important Q', color: 'bg-red-500' },
     };
     const { label, color } = config[type as keyof typeof config] || config.notes;
     return <Badge className={`${color} text-white`}>{label}</Badge>;
@@ -124,7 +129,7 @@ export default function ResourcesPage() {
 
         {/* Filters */}
         <Card className="bg-card border-border p-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div className="space-y-2">
               <Label htmlFor="filter-university">University</Label>
               <Select value={filters.university || undefined} onValueChange={(value) => setFilters({ ...filters, university: value })}>
@@ -137,6 +142,23 @@ export default function ResourcesPage() {
                 </SelectContent>
               </Select>
             </div>
+
+            {filters.university === 'vtu' && (
+              <div className="space-y-2">
+                <Label htmlFor="filter-scheme">Scheme</Label>
+                <Select value={filters.scheme || undefined} onValueChange={(value) => setFilters({ ...filters, scheme: value })}>
+                  <SelectTrigger id="filter-scheme">
+                    <SelectValue placeholder="All Schemes" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="2018">2018 Scheme</SelectItem>
+                    <SelectItem value="2021">2021 Scheme</SelectItem>
+                    <SelectItem value="2022">2022 Scheme</SelectItem>
+                    <SelectItem value="2025">2025 Scheme</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
             <div className="space-y-2">
               <Label htmlFor="filter-branch">Branch</Label>
@@ -176,6 +198,9 @@ export default function ResourcesPage() {
                 <SelectContent>
                   <SelectItem value="notes">Notes</SelectItem>
                   <SelectItem value="pyq">PYQ</SelectItem>
+                  <SelectItem value="handwritten">Handwritten</SelectItem>
+                  <SelectItem value="syllabus">Syllabus</SelectItem>
+                  <SelectItem value="important-questions">Important Questions</SelectItem>
                   <SelectItem value="handwritten">Handwritten</SelectItem>
                 </SelectContent>
               </Select>
@@ -235,6 +260,7 @@ export default function ResourcesPage() {
 
                     <div className="space-y-1 text-sm text-muted-foreground mb-4">
                       <p>🎓 {resource.university.toUpperCase()}</p>
+                      {resource.scheme && <p>📋 {resource.scheme} Scheme</p>}
                       {resource.branch && <p>📚 {resource.branch.toUpperCase()}</p>}
                       {resource.semester && <p>📅 {resource.semester} Semester</p>}
                       {resource.subjectCode && <p>🔖 {resource.subjectCode}</p>}
