@@ -207,12 +207,12 @@ export default function ResourcesPage() {
             </div>
           </div>
 
-          {(filters.university || filters.branch || filters.semester || filters.type) && (
+          {(filters.university || filters.scheme || filters.branch || filters.semester || filters.type) && (
             <div className="mt-4">
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setFilters({ university: '', branch: '', semester: '', type: '' })}
+                onClick={() => setFilters({ university: '', scheme: '', branch: '', semester: '', type: '' })}
               >
                 Clear Filters
               </Button>
