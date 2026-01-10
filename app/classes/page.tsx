@@ -38,7 +38,7 @@ export default function ClassesPage() {
                 const data = await response.json();
                 setClassesData(data);
             } catch (error) {
-                console.error('Failed to fetch classes:', error);
+                // Error fetching classes - could add toast notification here
             } finally {
                 setLoading(false);
             }
@@ -74,13 +74,13 @@ export default function ClassesPage() {
         setCollege(value);
     };
 
-    // Placeholder for Google Form
+    // Classes registration form
     const openBookingForm = (classId: string) => {
-        window.open('https://forms.google.com', '_blank');
+        window.open('https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__miwWkxUQ0laME1aNFRUNlBPUFBFM1ExQ09CVDc4My4u', '_blank');
     };
 
     const openRequestForm = () => {
-        window.open('https://forms.google.com', '_blank');
+        window.open('https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__miwWkxUQ0laME1aNFRUNlBPUFBFM1ExQ09CVDc4My4u', '_blank');
     };
 
     return (

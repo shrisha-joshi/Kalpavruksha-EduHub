@@ -10,7 +10,7 @@ import { StructuredData } from '@/components/seo/StructuredData';
 
 export default function ProjectsPage() {
     const openProjectForm = () => {
-        window.open('https://forms.google.com', '_blank');
+        window.open('https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__miwWkxUQlVJVlhXTTU3RTVUQ0ExMjRQTlVLOFE5Si4u', '_blank');
     };
 
     const minorProjects = [

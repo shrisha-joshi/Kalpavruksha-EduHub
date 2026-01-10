@@ -2,7 +2,6 @@
 
 import { Hero } from '@/components/home/Hero';
 import { GlowingCursorOrb, ParticleTrail } from '@/components/home/CursorEffects';
-import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { StructuredData } from '@/components/seo/StructuredData';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -20,8 +19,6 @@ export default function Home() {
       {/* Global Cursor Effects */}
       <GlowingCursorOrb />
       <ParticleTrail />
-      
-      <Navbar />
       
       <Hero />
       

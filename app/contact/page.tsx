@@ -130,35 +130,43 @@ export default function ContactPage() {
           </Card>
         </div>
 
-        {/* FAQ Section */}
+        {/* Quick Contact FAQs */}
         <Card className="bg-card border-border">
           <CardContent className="p-6">
-            <h3 className="text-xl font-semibold mb-4">Frequently Asked Questions</h3>
+            <h3 className="text-xl font-semibold mb-4">Quick Contact Questions</h3>
             <div className="space-y-4">
-              <div>
-                <h4 className="font-semibold mb-1">📚 How can I access study materials?</h4>
-                <p className="text-muted-foreground text-sm">
-                  Visit our Resources page to browse and download notes, PYQs, and other materials.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-1">🎓 How do I join classes?</h4>
-                <p className="text-muted-foreground text-sm">
-                  Check the Classes page for available sessions and enrollment details.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-1">📤 Can I contribute resources?</h4>
-                <p className="text-muted-foreground text-sm">
-                  Yes! Use the "Contribute Resources" button on the Resources page to share your notes.
-                </p>
-              </div>
               <div>
                 <h4 className="font-semibold mb-1">📞 Do you accept phone calls?</h4>
                 <p className="text-muted-foreground text-sm">
-                  No, we only accept WhatsApp messages. Please do not call.
+                  No, we only accept WhatsApp messages. Please do not call - send us a message instead.
                 </p>
               </div>
+              <div>
+                <h4 className="font-semibold mb-1">⏰ What's your response time?</h4>
+                <p className="text-muted-foreground text-sm">
+                  We typically respond within 24-48 hours on weekdays. For urgent requests, mention "URGENT" in your WhatsApp message.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-1">💳 What payment methods do you accept?</h4>
+                <p className="text-muted-foreground text-sm">
+                  We accept UPI (Google Pay, PhonePe, Paytm), bank transfer, and online payment. Flexible payment terms: 50% advance, 50% after delivery.
+                </p>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-1">🚨 How do I contact you for urgent requirements?</h4>
+                <p className="text-muted-foreground text-sm">
+                  Use WhatsApp (+91 8951633906) and mention "URGENT" in your first message. We prioritize urgent requests and respond faster.
+                </p>
+              </div>
+            </div>
+            <div className="mt-6 pt-6 border-t border-border text-center">
+              <p className="text-muted-foreground mb-3">Have more questions about projects, resources, or pricing?</p>
+              <a href="/faq">
+                <Button variant="outline" className="w-full md:w-auto">
+                  View All FAQs →
+                </Button>
+              </a>
             </div>
           </CardContent>
         </Card>

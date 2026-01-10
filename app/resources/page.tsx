@@ -48,7 +48,7 @@ export default function ResourcesPage() {
       const data = await response.json();
       setResources(data);
     } catch (error) {
-      console.error('Failed to fetch resources:', error);
+      // Error fetching resources - could add toast notification here
     } finally {
       setLoading(false);
     }
@@ -127,7 +127,7 @@ export default function ResourcesPage() {
           </p>
           <Button 
             size="lg"
-            onClick={() => window.open('https://forms.google.com/', '_blank')}
+            onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSdxhC7xX1arSewbXVTcNM-JP4OQO4MXrIHk8YJdZQY43lZW9A/viewform?usp=header', '_blank')}
             className="mt-4"
           >
             📤 Contribute Your Resources

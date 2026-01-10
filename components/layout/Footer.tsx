@@ -35,7 +35,7 @@ export function Footer() {
                 </div>
                 <div className="flex items-center space-x-2 text-muted-foreground">
                     <Mail className="w-4 h-4" />
-                    <a href="mailto:Kalpavrukshaeduhub@gmail.com" className="hover:text-primary">info@kalpavrukshaeduhub.com</a>
+                    <a href="mailto:Kalpavrukshaeduhub@gmail.com" className="hover:text-primary">Kalpavrukshaeduhub@gmail.com</a>
                 </div>
             </div>
         </div>

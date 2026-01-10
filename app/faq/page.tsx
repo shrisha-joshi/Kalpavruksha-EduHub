@@ -74,19 +74,9 @@ export default function FAQPage() {
       category: 'projects',
     },
     {
-      question: "What payment methods do you accept?",
-      answer: "We accept all major payment methods including UPI (Google Pay, PhonePe, Paytm), bank transfer, and online payment. Payment terms are flexible - you can pay 50% advance and remaining 50% after project delivery.",
-      category: 'pricing',
-    },
-    {
       question: "Can I request custom project ideas?",
       answer: "Definitely! We encourage custom project ideas. Share your concept, and our team will help you refine it, suggest the best technology stack, and develop it professionally. We turn your ideas into reality.",
       category: 'projects',
-    },
-    {
-      question: "How do I contact you for urgent requirements?",
-      answer: "For urgent requirements, use the WhatsApp number on our Contact page for immediate response. We understand student deadlines and prioritize urgent requests accordingly.",
-      category: 'general',
     },
     {
       question: "Do you support projects for other universities besides VTU?",
@@ -211,7 +201,7 @@ export default function FAQPage() {
               Still Have Questions?
             </h2>
             <p className="text-muted-foreground">
-              Can't find what you're looking for? Contact us directly and we'll be happy to help!
+              Can't find what you're looking for? Check our Contact page for payment, response time, and urgent request info, or reach out directly!
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link href="/contact">

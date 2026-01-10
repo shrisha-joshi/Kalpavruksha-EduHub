@@ -1,12 +1,34 @@
 import Script from 'next/script';
 
+interface CourseData {
+  name?: string;
+  description?: string;
+}
+
+interface ServiceData {
+  serviceType?: string;
+  name?: string;
+  description?: string;
+}
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface FAQData {
+  questions: FAQItem[];
+}
+
+type SEOData = CourseData | ServiceData | FAQData | undefined;
+
 interface SEOProps {
   type: 'organization' | 'website' | 'course' | 'service' | 'faq';
-  data?: any;
+  data?: SEOData;
 }
 
 export function StructuredData({ type, data }: SEOProps) {
-  const baseUrl = 'https://kalpavrukshaedu.vercel.app';
+  const baseUrl = 'https://kalpavruksha-eduhub.vercel.app';
 
   const getStructuredData = () => {
     switch (type) {
@@ -50,11 +72,12 @@ export function StructuredData({ type, data }: SEOProps) {
         };
 
       case 'course':
+        const courseData = data as CourseData | undefined;
         return {
           '@context': 'https://schema.org',
           '@type': 'Course',
-          name: data?.name || 'VTU Study Materials',
-          description: data?.description || 'Free downloadable study materials, notes, PYQ, and syllabus for all VTU schemes',
+          name: courseData?.name || 'VTU Study Materials',
+          description: courseData?.description || 'Free downloadable study materials, notes, PYQ, and syllabus for all VTU schemes',
           provider: {
             '@type': 'EducationalOrganization',
             name: 'Kalpavruksha EduHub',
@@ -65,12 +88,13 @@ export function StructuredData({ type, data }: SEOProps) {
         };
 
       case 'service':
+        const serviceData = data as ServiceData | undefined;
         return {
           '@context': 'https://schema.org',
           '@type': 'Service',
-          serviceType: data?.serviceType || 'Academic Project Development',
-          name: data?.name || 'Academic Projects for Students',
-          description: data?.description || 'Professional minor and major project development for engineering students',
+          serviceType: serviceData?.serviceType || 'Academic Project Development',
+          name: serviceData?.name || 'Academic Projects for Students',
+          description: serviceData?.description || 'Professional minor and major project development for engineering students',
           provider: {
             '@type': 'EducationalOrganization',
             name: 'Kalpavruksha EduHub',
@@ -107,10 +131,11 @@ export function StructuredData({ type, data }: SEOProps) {
         };
 
       case 'faq':
+        const faqData = data as FAQData | undefined;
         return {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
-          mainEntity: data?.questions?.map((q: any) => ({
+          mainEntity: faqData?.questions?.map((q) => ({
             '@type': 'Question',
             name: q.question,
             acceptedAnswer: {
