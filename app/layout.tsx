@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   creator: "Kalpavruksha EduHub",
   publisher: "Kalpavruksha EduHub",
   metadataBase: new URL('https://kalpavrukshaedu.vercel.app'),
+  verification: {
+    google: "3I9iGHeDeDLRzzePUKbtqKY6yzL7APZbnHEZcIYOhJw",
+  },
   openGraph: {
     title: "Kalpavruksha EduHub | Academic Excellence",
     description: "High-quality, affordable academic projects and resources for university students",
