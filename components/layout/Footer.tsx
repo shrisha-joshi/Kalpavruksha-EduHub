@@ -19,13 +19,14 @@ export function Footer() {
                     <li><Link href="/projects" className="text-muted-foreground hover:text-primary transition-colors">Projects</Link></li>
                     <li><Link href="/classes" className="text-muted-foreground hover:text-primary transition-colors">Classes</Link></li>
                     <li><Link href="/resources" className="text-muted-foreground hover:text-primary transition-colors">Resources</Link></li>
+                    <li><Link href="/faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</Link></li>
                 </ul>
             </div>
             
             <div>
                 <h4 className="font-bold text-foreground mb-4">Connect</h4>
                 <div className="flex space-x-4 mb-4">
-                    <Link href="https://www.instagram.com/kalpavrukshaedu" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">
+                    <Link href="https://www.instagram.com/kalpavruksha_eduhub?igsh=MTFuNTc1a3FhbHJ0cQ==" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">
                         <Instagram className="w-5 h-5" />
                     </Link>
                     <Link href="https://linkedin.com/company/kalpavruksha-eduhub" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">

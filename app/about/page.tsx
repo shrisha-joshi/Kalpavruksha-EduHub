@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export default function AboutPage() {
   const container = {
@@ -83,29 +82,20 @@ export default function AboutPage() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
             >
                 {[
                     { role: "CEO & Co-Founder", name: "Shreekar Kulkarni", message: "Kalpavruksha EduHub exists to give students clarity, direction, and reliable academic support where it truly matters. Our focus is on building competence, confidence, and outcomes—not shortcuts." },
                     { role: "COO & Co-Founder", name: "Susheel Kulkarni", message: "We operate with discipline and intent, ensuring every project, class, and resource delivers real value to students. Consistency, quality, and trust guide everything we build." },
-                    // { role: "CTO", name: "Chief Technology Officer", message: "Building the technology that powers your learning journey." }
                 ].map((member, index) => (
                     <motion.div key={index} variants={item}>
-                        <Card className="bg-secondary/30 border-none overflow-hidden group">
-                            <CardContent className="p-6 flex flex-col items-center text-center space-y-4">
-                                <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-2 border border-primary/30 group-hover:scale-105 transition-transform">
-                                    <Avatar className="w-20 h-20">
-                                        <AvatarImage src="" />
-                                        <AvatarFallback className="bg-primary text-primary-foreground text-xl font-bold">
-                                            {member.role}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                </div>
+                        <Card className="bg-secondary/30 border-none overflow-hidden group h-full">
+                            <CardContent className="p-8 flex flex-col items-center text-center space-y-4">
                                 <div>
-                                    <h3 className="text-xl font-bold text-primary">{member.role}</h3>
-                                    <p className="text-sm text-muted-foreground">{member.name}</p>
+                                    <h3 className="text-2xl font-bold text-primary mb-2">{member.name}</h3>
+                                    <p className="text-lg text-accent font-semibold">{member.role}</p>
                                 </div>
-                                <blockquote className="text-gray-400 italic text-sm border-t border-border pt-4 w-full">
+                                <blockquote className="text-gray-300 italic text-base border-t border-border pt-6 w-full leading-relaxed">
                                     "{member.message}"
                                 </blockquote>
                             </CardContent>

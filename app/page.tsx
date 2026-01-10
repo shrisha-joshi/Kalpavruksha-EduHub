@@ -4,6 +4,7 @@ import { Hero } from '@/components/home/Hero';
 import { GlowingCursorOrb, ParticleTrail } from '@/components/home/CursorEffects';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { StructuredData } from '@/components/seo/StructuredData';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -12,6 +13,10 @@ import { BookOpen, Codepen, GraduationCap } from 'lucide-react';
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col bg-background selection:bg-primary/30">
+      {/* SEO Structured Data */}
+      <StructuredData type="organization" />
+      <StructuredData type="website" />
+      
       {/* Global Cursor Effects */}
       <GlowingCursorOrb />
       <ParticleTrail />
@@ -74,17 +79,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Placeholder */}
+      {/* Testimonials Section */}
       <section className="py-20 bg-muted/20 px-4 border-y border-border/50">
         <div className="container mx-auto">
              <h2 className="text-3xl font-bold font-serif text-center text-foreground mb-12">Student Success Stories</h2>
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                 {[1, 2, 3].map((i) => (
-                     <div key={i} className="p-6 rounded-lg bg-card border border-border">
-                         <p className="italic text-muted-foreground mb-4">"Kalpavruksha EduHub helped me clear my backlog with ease. The resources were spot on!"</p>
-                         <p className="font-bold text-primary">- Student {String.fromCharCode(64 + i)}</p>
-                     </div>
-                 ))}
+                 <div className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors">
+                     <p className="italic text-muted-foreground mb-4 leading-relaxed">
+                       "I just wanted to say a huge thank you for creating and submitting the Chronic Kidney Disease prediction project. I really appreciate the time, effort, and skills you put into it—it means a lot. You did an amazing job, and your support truly helped make the project better. Thanks again for always having my back for this project!"
+                     </p>
+                     <p className="font-bold text-primary">- Laxmi</p>
+                 </div>
+                 <div className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors">
+                     <p className="italic text-muted-foreground mb-4 leading-relaxed">
+                       "Kalpavruksha made even complex topics feel simple and logical. Their teaching cleared my fundamentals completely and boosted my confidence."
+                     </p>
+                     <p className="font-bold text-primary">- Kiran</p>
+                 </div>
+                 <div className="p-6 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors">
+                     <p className="italic text-muted-foreground mb-4 leading-relaxed">
+                       "I don't know what to say but actually good project everybody appreciated. Implementation and working, even though hardware and software everything is good. I really liked it. I will be very thankful for that ☺️"
+                     </p>
+                     <p className="font-bold text-primary">- Tejashree</p>
+                 </div>
              </div>
         </div>
       </section>

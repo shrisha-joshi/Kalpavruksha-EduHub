@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { FileText, Download, Eye, Loader2 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
+import { StructuredData } from '@/components/seo/StructuredData';
 
 type Resource = {
   _id: string;
@@ -107,13 +108,22 @@ export default function ResourcesPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 md:px-8 bg-background">
+      {/* SEO Structured Data */}
+      <StructuredData 
+        type="course" 
+        data={{
+          name: 'VTU Study Materials and Resources',
+          description: 'Free downloadable study materials, notes, PYQ, and syllabus for all VTU schemes (2018, 2021, 2022, 2025)',
+        }}
+      />
+      
       <div className="container mx-auto space-y-8">
         
         {/* Header */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold font-serif text-primary">Study Resources</h1>
+          <h1 className="text-4xl md:text-5xl font-bold font-serif text-primary">Free VTU Study Resources - Notes, PYQ, Syllabus for All Schemes</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Download notes, PYQs, and handwritten materials. Click "View" to preview before downloading.
+            Download free VTU notes, previous year questions (PYQ), handwritten notes, and syllabus for 2018, 2021, 2022, 2025 schemes. All branches - CSE, ISE, ECE, Mechanical, Civil.
           </p>
           <Button 
             size="lg"
