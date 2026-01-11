@@ -38,9 +38,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/kalpa-tree.png', sizes: 'any' },
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/kalpavruksha-logo.png', sizes: '192x192', type: 'image/png' },
     ],
-    apple: '/kalpa-tree.png',
+    apple: '/kalpavruksha-logo.png',
+    shortcut: '/favicon.ico',
   },
   robots: {
     index: true,
