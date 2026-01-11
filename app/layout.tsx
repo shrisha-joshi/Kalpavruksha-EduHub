@@ -36,11 +36,6 @@ export const metadata: Metadata = {
     title: "Kalpavruksha EduHub",
     description: "Academic projects and resources for university students",
   },
-  icons: {
-    icon: '/kalpa-tree.png',
-    apple: '/kalpa-tree.png',
-    shortcut: '/kalpa-tree.png',
-  },
   robots: {
     index: true,
     follow: true,
