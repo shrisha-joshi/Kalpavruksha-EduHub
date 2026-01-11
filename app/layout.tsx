@@ -37,12 +37,9 @@ export const metadata: Metadata = {
     description: "Academic projects and resources for university students",
   },
   icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: '32x32' },
-      { url: '/kalpavruksha-logo.png', sizes: '192x192', type: 'image/png' },
-    ],
-    apple: '/kalpavruksha-logo.png',
-    shortcut: '/favicon.ico',
+    icon: '/kalpa-tree.png',
+    apple: '/kalpa-tree.png',
+    shortcut: '/kalpa-tree.png',
   },
   robots: {
     index: true,
