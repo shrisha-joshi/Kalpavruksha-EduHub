@@ -18,6 +18,7 @@ type Resource = {
   college?: string;
   branch?: string;
   semester?: string;
+  subjectName?: string;
   subjectCode?: string;
   header?: string;
   type: 'notes' | 'pyq' | 'handwritten' | 'syllabus' | 'important-questions';
@@ -33,6 +34,7 @@ export default function ResourcesPage() {
     scheme: '',
     branch: '',
     semester: '',
+    subject: '', // Format: "Name|Code"
     type: '',
   });
 
@@ -55,11 +57,53 @@ export default function ResourcesPage() {
     }
   };
 
+  // Get unique subjects for filter - filtered based on selected university, scheme, branch, and semester
+  const getFilteredSubjects = () => {
+    let filteredForSubjects = resources;
+    
+    // Apply current filters to determine which subjects to show
+    if (filters.university) {
+      filteredForSubjects = filteredForSubjects.filter(r => r.university === filters.university);
+    }
+    if (filters.scheme) {
+      filteredForSubjects = filteredForSubjects.filter(r => r.scheme === filters.scheme);
+    }
+    if (filters.branch) {
+      filteredForSubjects = filteredForSubjects.filter(r => r.branch === filters.branch);
+    }
+    if (filters.semester) {
+      filteredForSubjects = filteredForSubjects.filter(r => r.semester === filters.semester);
+    }
+
+    const subjects = Array.from(new Set(filteredForSubjects.map(r => {
+      if (!r.subjectName && !r.subjectCode) return null;
+      return JSON.stringify({ name: r.subjectName, code: r.subjectCode });
+    }))).filter(Boolean).map(s => JSON.parse(s as string)).sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+
+    return subjects;
+  };
+
+  const subjects = getFilteredSubjects();
+
   const filteredResources = resources.filter((resource) => {
     if (filters.university && resource.university !== filters.university) return false;
     if (filters.scheme && resource.scheme !== filters.scheme) return false;
     if (filters.branch && resource.branch !== filters.branch) return false;
     if (filters.semester && resource.semester !== filters.semester) return false;
+
+    if (filters.subject) {
+      const [filterName, filterCode] = filters.subject.split('|');
+      // Match if either name or code matches (or both)
+      if (filterName !== 'undefined' && resource.subjectName !== filterName) {
+        // If code is present in filter but not in resource (or mismatch), validation might fail
+        // Simplified: check exact match on the combined key logic
+        const resourceKey = `${resource.subjectName}|${resource.subjectCode}`;
+        if (resourceKey !== filters.subject) return false;
+      } else if (filterName === 'undefined' && resource.subjectCode !== filterCode) {
+        return false;
+      }
+    }
+
     if (filters.type && resource.type !== filters.type) return false;
     return true;
   });
@@ -85,7 +129,7 @@ export default function ResourcesPage() {
         downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
       }
     }
-    
+
     const a = document.createElement('a');
     a.href = downloadUrl;
     a.download = name;
@@ -110,23 +154,23 @@ export default function ResourcesPage() {
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 md:px-8 bg-background">
       {/* SEO Structured Data */}
-      <StructuredData 
-        type="course" 
+      <StructuredData
+        type="course"
         data={{
           name: 'VTU Study Materials and Resources',
           description: 'Free downloadable study materials, notes, PYQ, and syllabus for all VTU schemes (2018, 2021, 2022, 2025)',
         }}
       />
-      
+
       <div className="container mx-auto space-y-8">
-        
+
         {/* Header */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl md:text-5xl font-bold font-serif text-primary">Free VTU Study Resources - Notes, PYQ, Syllabus for All Schemes</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Download free VTU notes, previous year questions (PYQ), handwritten notes, and syllabus for 2018, 2021, 2022, 2025 schemes. All branches - CSE, ISE, ECE, Mechanical, Civil.
           </p>
-          <Button 
+          <Button
             size="lg"
             onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSdxhC7xX1arSewbXVTcNM-JP4OQO4MXrIHk8YJdZQY43lZW9A/viewform?usp=header', '_blank')}
             className="mt-4"
@@ -143,7 +187,7 @@ export default function ResourcesPage() {
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div className="space-y-2">
               <Label htmlFor="filter-university">University</Label>
-              <Select value={filters.university || undefined} onValueChange={(value) => setFilters({ ...filters, university: value })}>
+              <Select value={filters.university || undefined} onValueChange={(value) => setFilters({ university: value, scheme: '', branch: '', semester: '', subject: '', type: filters.type })}>
                 <SelectTrigger id="filter-university">
                   <SelectValue placeholder="All Universities" />
                 </SelectTrigger>
@@ -157,7 +201,7 @@ export default function ResourcesPage() {
             {filters.university === 'vtu' && (
               <div className="space-y-2">
                 <Label htmlFor="filter-scheme">Scheme</Label>
-                <Select value={filters.scheme || undefined} onValueChange={(value) => setFilters({ ...filters, scheme: value })}>
+                <Select value={filters.scheme || undefined} onValueChange={(value) => setFilters({ ...filters, scheme: value, branch: '', semester: '', subject: '' })}>
                   <SelectTrigger id="filter-scheme">
                     <SelectValue placeholder="All Schemes" />
                   </SelectTrigger>
@@ -173,7 +217,7 @@ export default function ResourcesPage() {
 
             <div className="space-y-2">
               <Label htmlFor="filter-branch">Branch</Label>
-              <Select value={filters.branch || undefined} onValueChange={(value) => setFilters({ ...filters, branch: value })}>
+              <Select value={filters.branch || undefined} onValueChange={(value) => setFilters({ ...filters, branch: value, semester: '', subject: '' })}>
                 <SelectTrigger id="filter-branch">
                   <SelectValue placeholder="All Branches" />
                 </SelectTrigger>
@@ -189,13 +233,33 @@ export default function ResourcesPage() {
 
             <div className="space-y-2">
               <Label htmlFor="filter-semester">Semester</Label>
-              <Select value={filters.semester || undefined} onValueChange={(value) => setFilters({ ...filters, semester: value })}>
+              <Select value={filters.semester || undefined} onValueChange={(value) => setFilters({ ...filters, semester: value, subject: '' })}>
                 <SelectTrigger id="filter-semester">
                   <SelectValue placeholder="All Semesters" />
                 </SelectTrigger>
                 <SelectContent>
                   {['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'].map((sem) => (
                     <SelectItem key={sem} value={sem}>{sem}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="filter-subject">Subject</Label>
+              <Select 
+                value={filters.subject || undefined} 
+                onValueChange={(value) => setFilters({ ...filters, subject: value })}
+                disabled={subjects.length === 0}
+              >
+                <SelectTrigger id="filter-subject">
+                  <SelectValue placeholder={subjects.length === 0 ? "Select branch first" : "All Subjects"} />
+                </SelectTrigger>
+                <SelectContent>
+                  {subjects.map((subj, idx) => (
+                    <SelectItem key={idx} value={`${subj.name}|${subj.code}`}>
+                      {subj.name || subj.code || 'Unknown'}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -224,7 +288,7 @@ export default function ResourcesPage() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setFilters({ university: '', scheme: '', branch: '', semester: '', type: '' })}
+                onClick={() => setFilters({ university: '', scheme: '', branch: '', semester: '', type: '', subject: '' })}
               >
                 Clear Filters
               </Button>
@@ -246,7 +310,7 @@ export default function ResourcesPage() {
               <FileText className="h-16 w-16 mx-auto text-muted-foreground" />
               <h3 className="text-xl font-semibold">No resources found</h3>
               <p className="text-muted-foreground">
-                {filters.university || filters.branch || filters.semester || filters.type
+                {filters.university || filters.branch || filters.semester || filters.subject || filters.type
                   ? 'Try adjusting your filters'
                   : 'Resources will appear here once added by admin'}
               </p>
@@ -269,7 +333,7 @@ export default function ResourcesPage() {
                     </div>
 
                     <h3 className="text-lg font-semibold mb-2 flex-1">{resource.name}</h3>
-                    
+
                     {resource.header && (
                       <div className="mb-3 px-3 py-1.5 bg-primary/10 rounded-md">
                         <p className="text-sm font-medium text-primary">📌 {resource.header}</p>
@@ -281,6 +345,7 @@ export default function ResourcesPage() {
                       {resource.scheme && <p>📋 {resource.scheme} Scheme</p>}
                       {resource.branch && <p>📚 {resource.branch.toUpperCase()}</p>}
                       {resource.semester && <p>📅 {resource.semester} Semester</p>}
+                      {resource.subjectName && <p>📖 {resource.subjectName}</p>}
                       {resource.subjectCode && <p>🔖 {resource.subjectCode}</p>}
                       {resource.college && <p>🏫 {resource.college}</p>}
                     </div>
